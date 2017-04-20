@@ -22,6 +22,8 @@ int main(int argc, char** argv) {
     cout << digit_prob.targets[10];
 }
 
+
+// reads in sets of digit recognition problems from files
 Problem read_file(string problem_file_name) {
     
     Problem digit_recognition;
@@ -41,42 +43,45 @@ Problem read_file(string problem_file_name) {
         cout << "Error: not able to open file" << endl;
     }
     
+    // read the first line and determine map size
     while(problem_stream.peek() != '\n') {
 
         problem_stream.get(curr_char);
+        
+        // if comma, save number and move on
         if(curr_char == ',') {
             digit_recognition.inputs[digit_recognition.num_inputs].push_back(stoi(curr_number));
             curr_number.clear();
             ++digit_recognition.map_size;
         }
+        
+        // else, add char to curr number string
         else {
             curr_number += curr_char;
         }
     }
     
-//    digit_recognition.targets.push_back(stoi(curr_number));
-//    curr_number.clear();
-//    ++digit_recognition.num_inputs;
-//    digit_recognition.inputs.push_back(dummy_inputs);
     
     while(problem_stream.peek() != EOF) {
-        //cout << curr_char << endl;
         
         problem_stream.get(curr_char);
 
+        // if comma, save number and move on
         if(curr_char == ',') {
             digit_recognition.inputs[digit_recognition.num_inputs].push_back(stoi(curr_number));
-            //cout << curr_number << "\t";
             curr_number.clear();
         }
+        
+        // if new line, cap off current digit image and move on to next one
         else if(curr_char == '\n') {
-            //cout << curr_number << endl;
             digit_recognition.targets.push_back(stoi(curr_number));
             curr_number.clear();
             ++digit_recognition.num_inputs;
             cout << digit_recognition.num_inputs << endl;
             digit_recognition.inputs.push_back(dummy_inputs);
         }
+        
+        // else, add char to curr number string
         else {
             curr_number += curr_char;
         }
