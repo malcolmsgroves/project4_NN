@@ -3,9 +3,9 @@
 using namespace std;
 
 NN::NN(double learningRate, int numTrainInputs, int numTestInputs,
-       int numOutputs, int mapSize, vector<vector<int>> trainInputs,
-       vector<vector<int>> testInputs, vector<vector<int>> trainTargets,
-       vector<vector<int>> testTargets, int maxEpochs):
+       int numOutputs, int mapSize, vector<vector<int> > trainInputs,
+       vector<vector<int> > testInputs, vector<int> trainTargets,
+       vector<int> testTargets, int maxEpochs):
   num_train_inputs(numTrainInputs), num_test_inputs(numTestInputs),
   num_outputs(numOutputs), map_size(mapSize),
   learning_rate(learningRate), train_inputs(trainInputs),

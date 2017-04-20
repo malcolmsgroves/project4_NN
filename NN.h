@@ -13,9 +13,9 @@ struct output {
 class NN {
 public:
     NN(double learningRate, int numTrainInputs, int numTestInputs,
-       int numOutputs, int mapSize, vector<vector<int>> trainInputs,
-       vector<vector<int>> testInputs, vector<vector<int>> trainTargets,
-       vector<vector<int>> testTargets, int maxEpochs);
+       int numOutputs, int mapSize, vector<vector<int> > trainInputs,
+       vector<vector<int> > testInputs, vector<int> trainTargets,
+       vector<int> testTargets, int maxEpochs);
     void test();
     void train();
 
