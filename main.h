@@ -13,6 +13,16 @@
 using namespace std;
 
 
+struct Problem {
+    
+    vector<vector<int>> inputs;
+    vector<int> targets;
+    int num_inputs;
+    int map_size;
+    
+};
+
+Problem read_file(string problem_file_name);
 
 #endif
 
