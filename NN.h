@@ -6,13 +6,16 @@
 using namespace std;
 
 struct output {
-    double *weights;
+    vector<double> weights;
 };
 
 
 class NN {
 public:
-    NN(double learningRate, int numTrainInputs, int numTestInputs, int numOutputs, int mapSize, int **trainInputs, int **testInputs, int *trainTargets, int *testTargets, int maxEpochs);
+    NN(double learningRate, int numTrainInputs, int numTestInputs,
+       int numOutputs, int mapSize, vector<vector<int>> trainInputs,
+       vector<vector<int>> testInputs, vector<vector<int>> trainTargets,
+       vector<vector<int>> testTargets, int maxEpochs);
     void test();
     void train();
 
@@ -23,11 +26,11 @@ private:
     int map_size;
 
     double learning_rate;
-    int **train_inputs;
-    int **test_inputs;
-    int *train_targets;
-    int *test_targets;
-    output *outputs;
+    vector<vector<int>> train_inputs;
+    vector<vector<int>> test_inputs;
+    vector<int> train_targets;
+    vector<int> test_targets;
+    vector<output> outputs;
     int max_epochs;
 
 };
