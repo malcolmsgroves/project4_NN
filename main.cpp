@@ -64,7 +64,6 @@ Problem read_file(string problem_file_name) {
     }
   }
   
-  
   while(problem_stream.peek() != EOF) {
     
     problem_stream.get(curr_char);
@@ -91,18 +90,3 @@ Problem read_file(string problem_file_name) {
   }
   return digit_recognition;  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
