@@ -37,7 +37,7 @@ public:
     int max_epochs;
     
     void initialize_weights();
-    void update_weights(int output_index, double g,double g_prime,double target);
+    void update_weights(int output_index, int input_index, double g, double g_prime, double target);
     double activation_function(double x);
     double ddx_activation_function(double x);
     
