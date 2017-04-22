@@ -74,7 +74,7 @@ void NN::update_weights(int output_index, int input_index, double g, double g_pr
     } else {
         // no need to set target, as its already set
         //output_value = int ((g*10)); // got rid of + 0.5
-        target = target / 10;
+        target = (target + .5) / 10;
     }
     for(int i = 0; i < map_size+1; i++) {
         if(i < map_size) {
@@ -85,14 +85,16 @@ void NN::update_weights(int output_index, int input_index, double g, double g_pr
     }
 }
 
-double spread = 0.01;
 
 double NN::activation_function(double x) {
     return 1/(1+exp(.5-x));
+    //return 1 / (1 + exp(-a*x));
 }
 
 double NN::ddx_activation_function(double x) {
-    return (1.64872*exp(x))/pow((1.64872+exp(x)),2);
+    return (1.64872 * exp(x)) / pow((1.64872 + exp(x)), 2);
+    //return (1 * a * exp(x * a)) / pow((1 + exp(x * a)), 2);
+    
 }
 
 
@@ -128,9 +130,9 @@ void NN::test() {
             double g = activation_function(dot_product);
             
             if(num_outputs == 1) {
-                cout << int(10*g) << endl;
+                cout << int(10*g - .5) << endl;
                 cout << target << endl << endl;
-                if(target == int(10*g)) {
+                if(target == int(10*g - .5)) {
                     num_correct++;
                 }
                    
