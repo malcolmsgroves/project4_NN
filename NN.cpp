@@ -32,6 +32,7 @@ void NN::initialize_weights() {
 //void NN::test() {
 //    cout << "in test" << endl;
 //}
+<<<<<<< HEAD
 
 vector<double> NN::train() {
     //cout << "in train" << endl;
@@ -65,6 +66,31 @@ vector<double> NN::train() {
         }
         
         percent_correct.push_back(test());
+=======
+//
+void NN::train() {
+  cout << "in train" << endl;
+  for(int i = 0; i < max_epochs; i++) {
+    for(int input = 0; input < num_train_inputs; input++) { // omg, change this you dip
+      double target = train_targets[input];
+      for(int output = 0; output < num_outputs; output++) {
+ 	double dot_product = 0;
+	
+ 	for(int weight_index = 0; weight_index < map_size+1; weight_index++) {
+	  if(weight_index < map_size) {
+	    dot_product += train_inputs[input][weight_index]*outputs[output].weights[weight_index];
+	  } else {
+	    dot_product += outputs[output].weights[weight_index]; // bias node
+	  }
+	}
+ 	double g = activation_function(dot_product);
+ 	double g_prime = ddx_activation_function(dot_product);
+	cout << dot_product << endl;
+	cout << "g = " << g << endl;
+	cout << "g' = " << g_prime << endl;
+ 	update_weights(output, input, g, g_prime, target);
+      }
+>>>>>>> afe51d70171a1d315ff18207c4b6d0676cd4e19a
     }
     return percent_correct;
 }
