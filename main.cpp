@@ -9,22 +9,83 @@ int main(int argc, char** argv) {
     double learningRate = stod(argv[3]);
     int outputNodes = stoi(argv[4]);
     
-    
+    srand(time(NULL));
     
     int max_epochs = 50;
     
-    Problem digit_prob = read_file("optdigits.tra");
-    cout << digit_prob.map_size << endl;
-    cout << digit_prob.num_inputs << " " << digit_prob.inputs.size() << endl;
-    for(int i = 0; i < digit_prob.num_inputs; ++i) {
-        //cout << digit_prob.inputs[10][i] << ", ";
+    Problem trainProb = read_file(trainFile);
+    Problem testProb = read_file(testFile);
+    
+    string run_command;
+    cout << "Run all the tests? (y/n)" << endl;
+    cin >> run_command;
+    
+    if(run_command == "n") {
+        NN net(learningRate, trainProb, testProb, outputNodes,max_epochs);
+        cout << "made it" << endl;
+        vector<double> results = net.train();
+        cout << "again" << endl;
+        cout << "Percent correct: " << results.back() << endl;
     }
-    //cout << digit_prob.targets[10];
-    cout << "hey " << endl;
-    cout << digit_prob.inputs[0].size() << endl;
-    NN net(learningRate,digit_prob.num_inputs,digit_prob.num_inputs,outputNodes,digit_prob.map_size, digit_prob.inputs,digit_prob.inputs,digit_prob.targets,digit_prob.targets,max_epochs);
-    net.train();
-    net.test();
+    
+    else {
+        string nn_filename;
+        ofstream output_file;
+        cout << "name output file (with .csv): " << endl;
+        cin >> nn_filename;
+        
+        string output_string = "Neural Networks\nlearning rate,map_size,output_nodes,epoch,correct_tests\n";
+        
+        int max_epochs = 50;
+        
+        vector<double> lr_vector {0.01, 0.1, 0.5, 1.0};
+        // set map size
+        for(int i = 0; i < 2; ++i) {
+            string train_file, test_file;
+            
+            if(i == 0) {
+                train_file = "optdigits-8x8-int.tra";
+                test_file = "optdigits-8x8-int.tes";
+            }
+            else {
+                train_file = "optdigits-32x32.tra";
+                test_file = "optdigits-32x32.tes";
+            }
+            
+            for(int j = 0; j < 2; ++j) {
+                
+                int output_nodes;
+                if(j == 0) output_nodes = 1;
+                else output_nodes = 10;
+                
+                for(int lr = 0; lr < 4; ++lr) {
+                    
+                    double learning_rate = lr_vector[lr];
+                    Problem train_prob = read_file(train_file);
+                    Problem test_prob = read_file(test_file);
+                    
+                    
+                    NN net(learningRate, train_prob, test_prob, outputNodes,max_epochs);
+                    
+                    vector<double> results = net.train();
+                    
+                    for(int epoch = 0; epoch < results.size(); ++ epoch) {
+                        output_string += to_string(learning_rate) + "," + to_string(train_prob.map_size) + "," + to_string(output_nodes) + "," + to_string(epoch) + "," + to_string(results[epoch]) + "\n";
+                    }
+                    
+                    
+                    
+                    
+                    
+                }
+            }
+        }
+        
+        output_file.open(nn_filename);
+        output_file << output_string;
+        output_file.close();
+    }
+    
 }
 
 
@@ -88,5 +149,6 @@ Problem read_file(string problem_file_name) {
             curr_number += curr_char;
         }
     }
-    return digit_recognition;  
+    
+    return digit_recognition;
 }

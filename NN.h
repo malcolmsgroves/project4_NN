@@ -12,17 +12,22 @@ struct output {
     vector<double> weights;
 };
 
+struct Problem {
+    
+    vector<vector<int>> inputs;
+    vector<int> targets;
+    int num_inputs;
+    int map_size;
+    
+};
 
 class NN {
 public:
-  NN(double learningRate, int numTrainInputs, int numTestInputs,
-     int numOutputs, int mapSize, vector<vector<int> > trainInputs,
-     vector<vector<int> > testInputs, vector<int> trainTargets,
-     vector<int> testTargets, int maxEpochs);
-  void test();
-  void train();
-  
- private:
+    NN(double learningRate, Problem train_prob, Problem test_prob, int numOutputs, int maxEpochs);
+    double test();
+    vector<double> train();
+    
+private:
     int num_train_inputs;
     int num_test_inputs;
     int num_outputs;
