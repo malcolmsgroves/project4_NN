@@ -39,6 +39,7 @@ void NN::train() {
       double target = train_targets[input];
       for(int output = 0; output < num_outputs; output++) {
  	double dot_product = 0;
+	
  	for(int weight_index = 0; weight_index < map_size+1; weight_index++) {
 	  if(weight_index < map_size) {
 	    dot_product += train_inputs[input][weight_index]*outputs[output].weights[weight_index];
