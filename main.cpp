@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
                     Problem test_prob = read_file(test_file);
                     
                     
-                    NN net(learningRate, train_prob, test_prob, outputNodes,max_epochs);
+                    NN net(learning_rate, train_prob, test_prob, output_nodes,max_epochs);
                     
                     double start_time = clock();
                     
@@ -81,11 +81,12 @@ int main(int argc, char** argv) {
                     
                     double run_time = (end_time - start_time)/CLOCKS_PER_SEC;
                     
-//                    for(int epoch = 0; epoch < results.size(); ++ epoch) {
-//                        output_string += to_string(learning_rate) + "," + to_string(train_prob.map_size) + "," + to_string(output_nodes) + "," + to_string(epoch) + "," + to_string(results[epoch]) + ", ";
-//                    }
-                    // for runtimes
-                    output_string += to_string(learning_rate) + "," + to_string(train_prob.map_size) + "," + to_string(output_nodes) + "," + to_string(49) + "," + to_string(results.back()) + ", "+ to_string(run_time) + "\n";
+                    for(int epoch = 0; epoch < results.size(); ++ epoch) {
+                        output_string += to_string(learning_rate) + "," + to_string(train_prob.map_size) + "," + to_string(output_nodes) + "," + to_string(epoch) + "," + to_string(results[epoch]) + ", " + to_string(run_time) + "\n";
+                    }
+                    
+//                     for runtimes
+//                    output_string += to_string(learning_rate) + "," + to_string(train_prob.map_size) + "," + to_string(output_nodes) + "," + to_string(49) + "," + to_string(results.back()) + ", "+ to_string(run_time) + "\n";
                     
                     
                     
@@ -198,6 +199,9 @@ Problem read_file(string problem_file_name) {
                 curr_number += curr_char;
             }
         }
+        
+        problem_stream.close();
+        
         return digit_recognition;
     }
     
