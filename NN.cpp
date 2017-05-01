@@ -33,6 +33,13 @@ void NN::initialize_weights() {
 //    cout << "in test" << endl;
 //}
 
+void NN::clear() {
+    for(int i = 0; i < num_outputs; i++) {
+        outputs.clear();
+    }
+
+}
+
 
 vector<double> NN::train() {
     //cout << "in train" << endl;
@@ -134,6 +141,7 @@ double NN::test() {
                     dot_product += outputs[output].weights[weight_index];
                 }
             }
+            
             //cout << dot_product << endl;
             double g = activation_function(dot_product);
             

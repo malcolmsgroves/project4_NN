@@ -26,6 +26,7 @@ public:
     NN(double learningRate, Problem train_prob, Problem test_prob, int numOutputs, int maxEpochs);
     double test();
     vector<double> train();
+    void clear();
     
 private:
     int num_train_inputs;
@@ -45,6 +46,7 @@ private:
     void update_weights(int output_index, int input_index, double g, double g_prime, double target);
     double activation_function(double x);
     double ddx_activation_function(double x);
+    
     
 };
 

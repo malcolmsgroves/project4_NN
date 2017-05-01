@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
     double learningRate = stod(argv[3]);
     int outputNodes = stoi(argv[4]);
     
-    srand(time(NULL));
+    srand(420);
     
     int max_epochs = 50;
     
@@ -25,7 +25,10 @@ int main(int argc, char** argv) {
         
         vector<double> results = net.train();
         
-        cout << "Percent correct: " << results.back() << endl;
+        cout << "Percent correct: " << endl;
+        for(int i = 0; i < max_epochs; ++i) {
+            cout << i << ":\t" << results[i] << endl;
+        }
     }
     
     
@@ -73,6 +76,8 @@ int main(int argc, char** argv) {
                     vector<double> results = net.train();
                     
                     double end_time = clock();
+                    
+                    net.clear();
                     
                     double run_time = (end_time - start_time)/CLOCKS_PER_SEC;
                     
